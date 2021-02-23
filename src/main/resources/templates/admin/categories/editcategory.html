@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+
+<body>
+	<nav th:replace="fragments/nav :: nav-admin"></nav>
+	<div class="container">
+		<h1 class="display-2"
+			th:text="'Edit Category : ' + ${categories.name}"></h1>
+		<a href="/admin/categories" class="btn btn-primary mb-5"> Back to
+			categories </a>
+		<div th:if="${message}" th:text="${message}"
+			th:class="${'alert ' + alertClass }"></div>
+		<form method="post" th:object="${categories}"
+			th:action="@{/admin/categories/editcategory}">
+
+			<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+				There are errors</div>
+
+			<div class="form-group mb-2">
+				<label for=""> Name </label> <input type="text" class="form-control"
+					th:field="*{name}" th:value="${categories.name}" placeholder="Title">
+				<span class="error" th:if="${#fields.hasErrors('name')}"
+					th:errors="*{name}"></span>
+			</div>
+
+			<button class="btn btn-success mb-2">Save</button>
+			<input type="hidden" th:field="*{id}" th:value="${categories.id}">
+			<input type="hidden" th:field="*{sorting}" th:value="${categories.sorting}">
+		</form>
+
+	</div>
+	<div th:replace="fragments/footer"></div>
+</body>
+</html>

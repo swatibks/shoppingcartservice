@@ -58,6 +58,4 @@ public class Page {
 		this.sorting = sorting;
 	}	
 	
-	
-
 }

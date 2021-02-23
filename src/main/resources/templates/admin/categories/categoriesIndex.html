@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+<nav th:replace="fragments/nav :: nav-admin"></nav>
+
+<body>
+	<div class="container">
+		<h1 class="display-2">Categories</h1>
+		<a href="/admin/categories/addcategory" class="btn btn-primary">
+			Add new </a>
+	<div th:if="${message}" th:text="${message}" th:class= "${'alert ' + alertClass }"></div>
+		<div th:if="${!categories.empty}">
+			<table class="table sorting" id="categorytable">
+				<tr class="tableheading">
+					<th>Name</th>
+					<th>Edit</th>
+				</tr>
+				<tr th:each="category : ${categories}"
+					th:id="'id_' + ${category.id}">
+					<td th:text="${category.name}"></td>
+					<td><a
+						th:href="@{'/admin/categories/editcategory/'+ ${category.id}}">
+							Edit </a></td>
+					<td><a
+						th:href="@{'/admin/categories/deletecategory/' + ${category.id}}"
+						th:class="confirmDeletion"> Delete </a></td>
+				</tr>
+			</table>
+		</div>
+
+		<div th:unless="${!categories.empty}">
+			<h4 class="display-4">pages are NOT available</h4>
+		</div>
+	</div>
+	<div th:replace="fragments/footer"></div>
+	<script>
+		$("table#categorytable tbody").sortable({
+			items : "tr",
+			placeholder : "ui-state-highlight",
+			update : function() {
+				let ids = $("table#categorytable tbody").sortable("serialize");
+				let url = "/admin/categories/reorder";
+				$.post(url, ids, function(data) {
+					console.log(data);
+				});
+			}
+		});
+	</script>
+</body>
+</html>
