@@ -1,5 +1,6 @@
 package com.swati.shopping.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,11 @@ public class CommonController {
 	private CategoriesRepository categoryRepo;
 	
 	@ModelAttribute
-	public void shareData(Model model) {
+	public void shareData(Model model, Principal principal) {
+		
+		if(principal != null) {
+			model.addAttribute("principal", principal.getName());
+		}
 		List<Page> allPages = pageRepo.findAllByOrderBySortingAsc();
 		List<Categories> categories = categoryRepo.findAll();
 		model.addAttribute("allpages", allPages);

@@ -35,5 +35,11 @@ public class AllPagesController {
 		model.addAttribute("page", page);
 		return "allpages";
 	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
 
 }

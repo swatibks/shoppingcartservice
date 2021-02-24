@@ -13,8 +13,23 @@
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 			<li th:each="pagename : ${allpages}" th:if="${pagename.slug != 'home'}" class="nav-item" ><a class="nav-link active"
 					aria-current="page" th:href="@{'/' + ${pagename.slug}}" th:text="${pagename.title}"></a></li>
+			<li th:if="${principal == 'admin'}" class="nav-item" ><a class="nav-link active"
+					aria-current="page" th:href="@{'/admin/pages'}" th:text="Admin"></a></li>
 			</ul>
+			
+			<ul class="float-right navbar-nav" th:if="${principal == null}">
+				<li class="nav-item active" ><a th:href="@{/register}" class="nav-link" > Register </a></li>
+				<li class="nav-item active" ><a th:href="@{/login}" class="nav-link" > Login </a></li>
+		   </ul>
+		   
+		   <form th:if="${principal != null}" method="post" th:action="@{/logout}">
+		   		<span class="text-white" th:text="${'Hi ' + principal}"></span>
+		   		<button class="btn btn-secondary"> Logout </button>		   
+		   </form>
+		
 		</div>
+		
+		
 	</div>
 </nav>
 
@@ -36,6 +51,15 @@
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page" href="/admin/products">Products</a></li>
 			</ul>
+			<ul class="float-right navbar-nav" th:if="${principal == null}">
+				<li class="nav-item active" ><a th:href="@{/register}" class="nav-link" > Register </a></li>
+				<li class="nav-item active" ><a th:href="@{/login}" class="nav-link" > Login </a></li>
+		   </ul>
+		   
+		   <form th:if="${principal != null}" method="post" th:action="@{/logout}">
+		   		<span class="text-white" th:text="${'Hi ' + principal}"></span>
+		   		<button class="btn btn-secondary"> Logout </button>		   
+		   </form>
 		</div>
 	</div>
 </nav>

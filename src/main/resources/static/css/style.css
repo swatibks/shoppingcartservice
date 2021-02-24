@@ -13,3 +13,14 @@ table.sorting tr:not(.home){
 .ck.ck-content{
 	height : 200px;
 }
+
+html, 
+body {
+    height: 100%;
+}
+/*
+.home{
+	background: url("/images/girlshopping.jpg") center;
+	background-repeat: no-repeat;
+	background-size: 1300px 750px;
+}*/
